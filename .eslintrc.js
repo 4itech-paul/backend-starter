@@ -1,25 +1,32 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
-  },
-  plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
   root: true,
   env: {
-    node: true,
-    jest: true,
+    // https://eslint.org/docs/latest/use/configure/language-options#specifying-environments
+    node: true, // Node.js global variables and Node.js scoping.
+    jest: true, // Jest global variables.
   },
-  ignorePatterns: ['.eslintrc.js'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    // https://typescript-eslint.io/architecture/parser/
+    project: true, // find the tsconfig.json nearest each source file
+    tsconfigRootDir: __dirname, // provide the root directory for relative TSConfig paths specified in the project option
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:@typescript-eslint/strict',
+    'prettier',
+  ],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    eqeqeq: [
+      'error',
+      'always',
+      {
+        null: 'never',
+      },
+    ],
   },
 };
