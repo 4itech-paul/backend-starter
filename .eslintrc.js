@@ -28,5 +28,11 @@ module.exports = {
         null: 'never',
       },
     ],
+    '@typescript-eslint/no-extraneous-class': [
+      'warn',
+      {
+        allowEmpty: true,
+      },
+    ],
   },
 };
