@@ -3,6 +3,7 @@ import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 import { CustomBaseEntity } from './custom-base.entity';
 import { Customer } from './customer.entity';
 import { OrganizationRevision } from './organization-revision.entity';
+import { Vendor } from './vendor.entity';
 
 @Entity('organization_profile')
 export class OrganizationProfile extends CustomBaseEntity {
@@ -20,4 +21,7 @@ export class OrganizationProfile extends CustomBaseEntity {
 
   @OneToOne(() => Customer, (customer) => customer.organizationProfile)
   customer: Customer;
+
+  @OneToOne(() => Vendor, (vendor) => vendor.organizationProfile)
+  vendor: Vendor;
 }
