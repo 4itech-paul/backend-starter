@@ -17,15 +17,15 @@ export class OrganizationRevision extends CustomBaseEntity {
 
   @ManyToOne(
     () => Organization,
-    (organization) => organization.organizationRevision,
+    (organization) => organization.organizationRevisions,
   )
   @JoinColumn({ name: 'organizationId' })
-  organization: string;
+  organization: Organization;
 
   @ManyToOne(
     () => OrganizationProfile,
-    (organizationProfile) => organizationProfile.organizationRevision,
+    (organizationProfile) => organizationProfile.organizationRevisions,
   )
   @JoinColumn({ name: 'organizationProfileId' })
-  organizationProfile: string;
+  organizationProfile: OrganizationProfile;
 }

@@ -29,5 +29,5 @@ export class Organization extends CustomBaseEntity {
     () => OrganizationRevision,
     (organizationRevision) => organizationRevision.organization,
   )
-  organizationRevision: OrganizationRevision[];
+  organizationRevisions: OrganizationRevision[];
 }
