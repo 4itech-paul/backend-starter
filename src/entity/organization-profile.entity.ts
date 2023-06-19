@@ -1,15 +1,20 @@
 import { OrganizationKind } from 'src/enum/organization-kind.enum';
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 import { CustomBaseEntity } from './custom-base.entity';
 import { Customer } from './customer.entity';
 import { OrganizationRevision } from './organization-revision.entity';
 import { Vendor } from './vendor.entity';
+import { ServiceLine } from './service-line.entity';
 
 @Entity('organization_profile')
 export class OrganizationProfile extends CustomBaseEntity {
-  @Column({ type: 'varchar', length: 36 })
-  serviceLineId: string;
-
   @Column({ type: 'enum', enum: OrganizationKind })
   organizationKind: OrganizationKind;
 
@@ -24,4 +29,11 @@ export class OrganizationProfile extends CustomBaseEntity {
 
   @OneToOne(() => Vendor, (vendor) => vendor.organizationProfile)
   vendor: Vendor;
+
+  @ManyToOne(
+    () => ServiceLine,
+    (serviceLine) => serviceLine.organizationProfile,
+  )
+  @JoinColumn({ name: 'service_line_id' })
+  serviceLine: ServiceLine;
 }

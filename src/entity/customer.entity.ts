@@ -20,6 +20,9 @@ export class Customer extends CustomBaseEntity {
   @Column({ type: 'varchar', length: 36 })
   productKind: string;
 
+  @Column({ type: 'varchar', length: 36 })
+  industryCategory: string;
+
   @Column({ type: 'boolean', default: true })
   isAgency: boolean;
 
@@ -52,7 +55,7 @@ export class Customer extends CustomBaseEntity {
     (organizationProfile) => organizationProfile.customer,
   )
   @JoinColumn({ name: 'organization_profile_id' })
-  organizationProfile: string;
+  organizationProfile: OrganizationProfile;
 
   @OneToMany(() => CustomerContact, (contact) => contact.customer)
   contacts: CustomerContact[];
