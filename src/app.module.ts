@@ -21,6 +21,7 @@ import { AppService } from './app.service';
         database: configService.get('DB_NAME'),
         autoLoadEntities: true, // every entity registered through the forFeature() method will be automatically added to the entities array of the configuration object.
         synchronize: true, // Setting synchronize: true shouldn't be used in production - otherwise you can lose production data.
+        logging: true, // Setting logging: true shouldn't be used in production - it's just for debugging purposes.
       }),
     }),
   ],
