@@ -2,6 +2,17 @@
 # yarn lockfile v1
 
 
+"4itech-schematics@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/4itech-schematics/-/4itech-schematics-10.1.0.tgz#537650c7cd9eacead8881dd3cde81b3fee6afebe"
+  integrity sha512-sEKTofv5aKeHNE0fbg5DtAvqdsUoXTNWZ5KgkonvEBMZW0JtvVGhLyt7w/kHXITQ4FM7RehDZ1GRh4KVIWkmnQ==
+  dependencies:
+    "@angular-devkit/core" "16.1.0"
+    "@angular-devkit/schematics" "16.1.0"
+    comment-json "4.2.3"
+    jsonc-parser "3.2.0"
+    pluralize "8.0.0"
+
 "@ampproject/remapping@^2.2.0":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.1.tgz#99e8e11851128b8702cd57c33684f1d0f260b630"
