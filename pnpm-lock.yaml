@@ -64,9 +64,6 @@ devDependencies:
   '@nestjs/testing':
     specifier: ^10.0.0
     version: 10.0.0(@nestjs/common@10.0.0)(@nestjs/core@10.0.0)(@nestjs/platform-express@10.0.0)
-  '@tsconfig/node-lts':
-    specifier: ^18.12.3
-    version: 18.12.3
   '@types/express':
     specifier: ^4.17.17
     version: 4.17.17
@@ -1712,10 +1709,6 @@ packages:
   /@sqltools/formatter@1.2.5:
     resolution: {integrity: sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==}
     dev: false
-
-  /@tsconfig/node-lts@18.12.3:
-    resolution: {integrity: sha512-a8FraAjwaGKERCO5PowJeeCE/0Kv1whqegfNwJRIPG08Z5QDr6Kl1CgRrdIjGQtUCpSm+/BDCGeRKfAF1mg+ZQ==}
-    dev: true
 
   /@tsconfig/node10@1.0.9:
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
