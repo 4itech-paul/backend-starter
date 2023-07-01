@@ -26,7 +26,7 @@ import { AppService } from './app.service';
         database: configService.get('DB_NAME'),
         autoLoadEntities: true, // every entity registered through the forFeature() method will be automatically added to the entities array of the configuration object.
         synchronize: true, // Setting synchronize: true shouldn't be used in production - otherwise you can lose production data.
-        logging: !!configService.get('DB_LOGGING'), // Setting logging: true shouldn't be used in production - it's just for debugging purposes.
+        logging: !!configService.get<boolean>('DB_LOGGING'),
       }),
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
