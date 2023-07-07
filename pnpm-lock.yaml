@@ -29,6 +29,9 @@ dependencies:
   '@nestjs/typeorm':
     specifier: ^10.0.0
     version: 10.0.0(@nestjs/common@10.0.5)(@nestjs/core@10.0.5)(reflect-metadata@0.1.13)(rxjs@7.8.1)(typeorm@0.3.17)
+  dataloader:
+    specifier: ^2.2.2
+    version: 2.2.2
   graphql:
     specifier: ^16.7.1
     version: 16.7.1
@@ -4240,6 +4243,13 @@ packages:
       }
     engines: { node: '>=8' }
     dev: true
+
+  /dataloader@2.2.2:
+    resolution:
+      {
+        integrity: sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==,
+      }
+    dev: false
 
   /date-fns@2.30.0:
     resolution:
