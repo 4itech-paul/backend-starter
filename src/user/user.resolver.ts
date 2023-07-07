@@ -1,6 +1,17 @@
-import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Inject, forwardRef } from '@nestjs/common';
+import {
+  Args,
+  ID,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { Maybe } from 'graphql/jsutils/Maybe';
 
+import { PostService } from '../post/post.service';
+import { PostType } from '../post/type/post.type';
 import { UserArgs } from './args/user.args';
 import { CreateUserInput } from './input/create-user.input';
 import { UpdateUserInput } from './input/update-user.input';
@@ -12,7 +23,11 @@ import { UserService } from './user.service';
 
 @Resolver(() => UserType)
 export class UserResolver {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    @Inject(forwardRef(() => PostService))
+    private readonly postService: PostService,
+  ) {}
 
   @Mutation(() => CreateUserOutput)
   async createUser(
@@ -41,5 +56,10 @@ export class UserResolver {
     @Args('id', { type: () => ID }) id: string,
   ): Promise<RemoveUserOutput> {
     return this.userService.removeUser(id);
+  }
+
+  @ResolveField(() => [PostType])
+  posts(@Parent() { id }: UserType): Promise<Maybe<PostType[]>> {
+    return this.postService.findByPostArgs({ userId: id });
   }
 }

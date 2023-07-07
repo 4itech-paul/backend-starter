@@ -5,6 +5,7 @@
 input CreatePostInput {
   content: String!
   title: String!
+  userId: ID!
 }
 
 type CreatePostOutput {
@@ -36,12 +37,14 @@ type Post implements Node {
   content: String!
   id: ID!
   title: String!
+  user: User
+  userId: ID!
 }
 
 type Query {
   hello: String!
   post(id: ID!): Post!
-  posts(title: String): [Post!]!
+  posts(title: String, userId: ID): [Post!]!
   user(id: ID!): User!
   users(id: ID): [User!]!
 }
@@ -58,6 +61,7 @@ input UpdatePostInput {
   content: String
   id: ID!
   title: String
+  userId: ID
 }
 
 type UpdatePostOutput {
@@ -76,4 +80,5 @@ type UpdateUserOutput {
 type User implements Node {
   id: ID!
   name: String!
+  posts: [Post!]
 }

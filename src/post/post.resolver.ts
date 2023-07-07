@@ -1,6 +1,17 @@
-import { Maybe } from '@apollo/federation';
-import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Inject, forwardRef } from '@nestjs/common';
+import {
+  Args,
+  ID,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { Maybe } from 'graphql/jsutils/Maybe';
 
+import { UserType } from '../user/type/user.type';
+import { UserService } from '../user/user.service';
 import { PostArgs } from './args/post.args';
 import { CreatePostInput } from './input/create-post.input';
 import { UpdatePostInput } from './input/update-post.input';
@@ -12,7 +23,11 @@ import { PostType } from './type/post.type';
 
 @Resolver(() => PostType)
 export class PostResolver {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    @Inject(forwardRef(() => UserService))
+    private readonly userService: UserService,
+    private readonly postService: PostService,
+  ) {}
 
   @Mutation(() => CreatePostOutput)
   async createPost(
@@ -43,5 +58,10 @@ export class PostResolver {
     @Args('id', { type: () => ID }) id: string,
   ): Promise<Maybe<RemovePostOutput>> {
     return this.postService.removePost(id);
+  }
+
+  @ResolveField(() => UserType)
+  user(@Parent() { userId }: PostType): Promise<Maybe<UserType>> {
+    return this.userService.findById(userId);
   }
 }
