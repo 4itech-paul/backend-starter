@@ -2,6 +2,44 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateUserInput {
+  name: String!
+}
+
+type CreateUserOutput {
+  user: User!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): CreateUserOutput!
+  removeUser(id: ID!): RemoveUserOutput!
+  updateUser(input: UpdateUserInput!): UpdateUserOutput!
+}
+
+interface Node {
+  id: ID!
+}
+
 type Query {
   hello: String!
+  user(id: ID!): User!
+  users(id: ID): [User!]!
+}
+
+type RemoveUserOutput {
+  user: User!
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+}
+
+type UpdateUserOutput {
+  affectedCount: Int
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
 }

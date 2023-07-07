@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { AppService } from './app.service';
         playground: !!configService.get<boolean>('GRAPHQL_PLAYGROUND'),
       }),
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
