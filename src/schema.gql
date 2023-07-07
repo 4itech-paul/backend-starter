@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreatePostInput {
+  content: String!
+  title: String!
+}
+
+type CreatePostOutput {
+  post: Post!
+}
+
 input CreateUserInput {
   name: String!
 }
@@ -11,8 +20,11 @@ type CreateUserOutput {
 }
 
 type Mutation {
+  createPost(input: CreatePostInput!): CreatePostOutput!
   createUser(input: CreateUserInput!): CreateUserOutput!
+  removePost(id: ID!): RemovePostOutput!
   removeUser(id: ID!): RemoveUserOutput!
+  updatePost(input: UpdatePostInput!): UpdatePostOutput!
   updateUser(input: UpdateUserInput!): UpdateUserOutput!
 }
 
@@ -20,14 +32,36 @@ interface Node {
   id: ID!
 }
 
+type Post implements Node {
+  content: String!
+  id: ID!
+  title: String!
+}
+
 type Query {
   hello: String!
+  post(id: ID!): Post!
+  posts(title: String): [Post!]!
   user(id: ID!): User!
   users(id: ID): [User!]!
 }
 
+type RemovePostOutput {
+  post: Post!
+}
+
 type RemoveUserOutput {
   user: User!
+}
+
+input UpdatePostInput {
+  content: String
+  id: ID!
+  title: String
+}
+
+type UpdatePostOutput {
+  affectedCount: Int
 }
 
 input UpdateUserInput {
