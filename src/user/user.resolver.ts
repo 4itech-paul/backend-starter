@@ -9,6 +9,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { Maybe } from 'graphql/jsutils/Maybe';
+import { PostLoader } from 'src/post/post.loader';
 
 import { PostService } from '../post/post.service';
 import { PostType } from '../post/type/post.type';
@@ -19,12 +20,16 @@ import { CreateUserOutput } from './output/create-user.output';
 import { RemoveUserOutput } from './output/remove-user.output';
 import { UpdateUserOutput } from './output/update-user.output';
 import { UserType } from './type/user.type';
+import { UserLoader } from './user.loader';
 import { UserService } from './user.service';
 
 @Resolver(() => UserType)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
+    private readonly userLoaderService: UserLoader,
+    private readonly postLoaderService: PostLoader,
+
     @Inject(forwardRef(() => PostService))
     private readonly postService: PostService,
   ) {}
@@ -43,7 +48,7 @@ export class UserResolver {
 
   @Query(() => UserType)
   user(@Args('id', { type: () => ID }) id: string): Promise<Maybe<UserType>> {
-    return this.userService.findById(id);
+    return this.userLoaderService.getIdLoader().load(id);
   }
 
   @Mutation(() => UpdateUserOutput)
@@ -60,6 +65,6 @@ export class UserResolver {
 
   @ResolveField(() => [PostType])
   posts(@Parent() { id }: UserType): Promise<Maybe<PostType[]>> {
-    return this.postService.findByPostArgs({ userId: id });
+    return this.postLoaderService.getUserIdLoader().load(id);
   }
 }

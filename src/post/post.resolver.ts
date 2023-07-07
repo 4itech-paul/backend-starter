@@ -1,4 +1,3 @@
-import { Inject, forwardRef } from '@nestjs/common';
 import {
   Args,
   ID,
@@ -11,22 +10,23 @@ import {
 import { Maybe } from 'graphql/jsutils/Maybe';
 
 import { UserType } from '../user/type/user.type';
-import { UserService } from '../user/user.service';
+import { UserLoader } from '../user/user.loader';
 import { PostArgs } from './args/post.args';
 import { CreatePostInput } from './input/create-post.input';
 import { UpdatePostInput } from './input/update-post.input';
 import { CreatePostOutput } from './output/create-post.output';
 import { RemovePostOutput } from './output/remove-post.output';
 import { UpdatePostOutput } from './output/update-post.output';
+import { PostLoader } from './post.loader';
 import { PostService } from './post.service';
 import { PostType } from './type/post.type';
 
 @Resolver(() => PostType)
 export class PostResolver {
   constructor(
-    @Inject(forwardRef(() => UserService))
-    private readonly userService: UserService,
+    private readonly userLoaderService: UserLoader,
     private readonly postService: PostService,
+    private readonly postLoaderService: PostLoader,
   ) {}
 
   @Mutation(() => CreatePostOutput)
@@ -43,7 +43,7 @@ export class PostResolver {
 
   @Query(() => PostType)
   post(@Args('id', { type: () => ID }) id: string): Promise<Maybe<PostType>> {
-    return this.postService.findById(id);
+    return this.postLoaderService.getIdLoader().load(id);
   }
 
   @Mutation(() => UpdatePostOutput)
@@ -62,6 +62,6 @@ export class PostResolver {
 
   @ResolveField(() => UserType)
   user(@Parent() { userId }: PostType): Promise<Maybe<UserType>> {
-    return this.userService.findById(userId);
+    return this.userLoaderService.getIdLoader().load(userId);
   }
 }
